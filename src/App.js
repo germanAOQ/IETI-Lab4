@@ -23,7 +23,35 @@ const App = () => {
 	}
 
     const[isLoggedInState,setIsLoggedInState] = useState(initialLoggedInState);
-	
+
+    const items = [{
+        "description": "Do The NavBar",
+        "responsible": {
+            "name": "Daniel Walteros",
+            "email": userData.username
+        },
+        "status": "In Progress",
+        "dueDate": 156464645646
+        },{
+        "description": "Eat Lunch",
+        "responsible": {
+            "name": "Pepito Perez",
+            "email": userData.username
+        },
+        "status": "Ready",
+        "dueDate": 156475645646
+        },{
+        "description": "Go to the doctor",
+        "responsible": {
+            "name": "Juan Rodriguez",
+            "email": userData.username
+        },
+        "status": "Done",
+        "dueDate": 158464685646}
+    ];
+
+    const[itemsState,setItemsState] = useState(items);
+
     const handleSuccessfullyLogin = (e) => {
         setIsLoggedInState(true);
         localStorage.setItem("isLoggedIn", true);
@@ -42,41 +70,19 @@ const App = () => {
         window.location.href = "/";
     }
 
-    const items = [{
-        "description": "Do The NavBar",
-        "responsible": {
-            "name": userData.fullName,
-            "email": userData.username
-        },
-        "status": "In Progress",
-        "dueDate": 156464645646
-        },{
-        "description": "Eat Lunch",
-        "responsible": {
-            "name": userData.fullName,
-            "email": userData.username
-        },
-        "status": "Ready",
-        "dueDate": 156475645646
-        },{
-        "description": "Go to the doctor",
-        "responsible": {
-            "name": userData.fullName,
-            "email": userData.username
-        },
-        "status": "Done",
-        "dueDate": 158464685646}
-    ];
+    const handleAddNewTask = (newItem) => {
+        const newItems = [...itemsState,newItem];
+        setItemsState(newItems);
+    }
 
     const LoginView = () => (<Login successful={handleSuccessfullyLogin} failed={handleFailedLogin}/>);
-    const MainView = () => (<Main items={items} logout={handleLogout} userData={userData}/>);
-    const View = isLoggedInState ? MainView : LoginView ;
+    const MainView = () => (<Main items={itemsState} logout={handleLogout} userData={userData} addTask={handleAddNewTask}/>);
 
     return (
         <Router>
             <div className="App">
-                <Route exact path="/" component={View}/>
-                <Route path="/home" component={View}/>
+                <Route exact path="/" component={isLoggedInState ? MainView : LoginView}/>
+                <Route path="/home" component={isLoggedInState ? MainView : LoginView}/>
             </div>
         </Router>
     );

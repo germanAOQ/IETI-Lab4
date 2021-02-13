@@ -30,10 +30,8 @@ export const Task = (props) => {
                     <Typography className="title" color="textSecondary" gutterBottom>
                         {props.status}
                     </Typography>
-                    <Typography variant="body" component="p">
-                        {props.responsible.name}
-                        <br />
-                        {props.responsible.email}
+                    <Typography variant="body1" component="p">
+                        {props.responsible.name + " - "+ props.responsible.email}
                     </Typography>
                 </CardContent>
             </Card>

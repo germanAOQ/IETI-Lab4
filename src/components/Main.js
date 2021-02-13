@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {Task} from './Task';
 import {NavBar} from './NavBar';
+import {NewTask} from './NewTask';
 
 export const Main = (props) => {
 
@@ -20,6 +21,7 @@ export const Main = (props) => {
                     dueDate={item.dueDate}/>
                 );
             })}
+            <NewTask email={props.userData.username} addTask={props.addTask}/>
         </div>
     );
 }
