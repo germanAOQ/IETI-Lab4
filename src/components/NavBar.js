@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
@@ -28,44 +28,40 @@ export const NavBar = (props) => {
         setState({ ...state, [anchor]: open });
     };
 
+    const handleUserProfileView = () => {
+        window.location.href = "/user";
+    };
+
     const list = (anchor) => (
-        <div
-            className="list"
-            role="presentation"
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}>
-            <List>
-                <ListItem button>
-                    <ListItemIcon>
-                        <PersonIcon style={{ fontSize: 50 }}/>
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={props.userData.fullName}
-                        secondary={
-                            <div>
-                                <Typography
-                                    component="span"
-                                    variant="body2"
-                                    color="textPrimary"
-                                >{props.userData.username}
-                                </Typography>
-                            </div>
-                    }/>
-                </ListItem>
-            </List>
-            <Divider />
-            <List>
-                <ListItem onClick={props.logout}button>
-                    <ListItemIcon>
-                        <ExitToAppIcon style={{ fontSize: 50 }}/>
-                    </ListItemIcon>
-                    <ListItemText
-                        primary="Log Out"
-                    />
-                </ListItem>
-            </List>
-        </div>
-  );
+            <div
+                className="list"
+                role="presentation"
+                onClick={toggleDrawer(anchor, false)}
+                onKeyDown={toggleDrawer(anchor, false)}>
+                <List>
+                    <ListItem button onClick={handleUserProfileView}>
+                        <ListItemIcon>
+                            <PersonIcon style={{ fontSize: 50 }}/>
+                        </ListItemIcon>
+                        <ListItemText
+                            primary={props.userData.fullName}
+                            secondary={props.userData.username}
+                        />
+                    </ListItem>
+                </List>
+                <Divider />
+                <List>
+                    <ListItem onClick={props.logout}button>
+                        <ListItemIcon>
+                            <ExitToAppIcon style={{ fontSize: 50 }}/>
+                        </ListItemIcon>
+                        <ListItemText
+                            primary="Log Out"
+                        />
+                    </ListItem>
+                </List>
+            </div>
+    );
 
     return (
         <div>

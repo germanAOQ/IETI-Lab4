@@ -21,7 +21,7 @@ export const Main = (props) => {
                     dueDate={item.dueDate}/>
                 );
             })}
-            <NewTask email={props.userData.username} addTask={props.addTask}/>
+            <NewTask email={props.userData ? props.userData.username : "email"} addTask={props.addTask}/>
         </div>
     );
 }
