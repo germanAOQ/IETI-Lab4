@@ -9,7 +9,7 @@ import {Main} from './components/Main';
 const App = () => {
 
     localStorage.setItem("Username", "daniel@gmail.com");
-    localStorage.setItem("Password", "daniel@gmail.com");
+    localStorage.setItem("Password", "12345");
 	
 	let initialLoggedInState = localStorage.getItem("isLoggedIn");
 	if(initialLoggedInState === "false"){
@@ -44,9 +44,12 @@ const App = () => {
         axios.get("https://taskplannerieti-default-rtdb.firebaseio.com/user.json")
             .then(response => {
                 let result = response.data;
-                let userData = Object.keys(result)
+                let usersData = Object.keys(result)
                     .map(key => result[key]);
-                setUserState(userData[0]);
+                let userData = usersData[0];
+                localStorage.setItem("Username", userData.username);
+                localStorage.setItem("Password", userData.password);
+                setUserState(userData);
             }).catch(error => {
                 alert("Fallo de Conexión con DB");
             });
@@ -80,6 +83,22 @@ const App = () => {
         });
     }
 
+    const handleUpdateProfile = (newFullName,newPassword) => {
+        const email = userState.username;
+        const newUserData = {
+            username: email,
+            password: newPassword,
+            fullName: newFullName
+        };
+        axios.put("https://taskplannerieti-default-rtdb.firebaseio.com/user/-MTSd3d_vKkT1Wew3yV3.json",newUserData)
+            .then(response => {
+                setUserState(newUserData);
+                window.location.href = "/home";
+            }).catch(error => {
+                alert("Fallo de Conexión con DB");
+        });
+    };
+
     const LoginView = () => (<Login
         successful={handleSuccessfullyLogin}
         failed={handleFailedLogin}
@@ -94,6 +113,7 @@ const App = () => {
 
     const UserView = () => (<UserProfile
         userData={userState}
+        updateUserData={handleUpdateProfile}
     />);
 
     return (

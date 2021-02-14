@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
@@ -10,10 +10,31 @@ import Typography from '@material-ui/core/Typography';
 
 export const UserProfile = (props) => {
 
-    const handleFullNameChange = (e) => {};
-    const handleEmailChange = (e) => {};
-    const handlePasswordChange = (e) => {};
-    const handleRePasswordChange = (e) => {};
+    const[fullNameState,setFullNameState] = useState(props.userData.fullName);
+    const[passwordState,setPasswordState] = useState("");
+    const[repasswordState,setRepasswordState] = useState("");
+
+
+    const handleFullNameChange = (e) => {
+        setFullNameState(e.target.value);
+    };
+
+    const handlePasswordChange = (e) => {
+        setPasswordState(e.target.value);
+    };
+
+    const handleRePasswordChange = (e) => {
+        setRepasswordState(e.target.value);
+    };
+
+    const handleUpdateProfile = (e) => {
+        e.preventDefault();
+        if(passwordState !== repasswordState || passwordState !== props.userData.password){
+            alert("Please rewrite your password");
+        } else {
+            props.updateUserData(fullNameState,passwordState);
+        }
+    };
 
     return(
         <div>
@@ -22,15 +43,15 @@ export const UserProfile = (props) => {
                 <Paper className="paper">
                     <Typography variant="h4">Registration</Typography>
                     <PersonIcon style={{ fontSize: 80 }}/>
-                    <form className="form" onSubmit={() => {}}>
+                    <form className="form" onSubmit={handleUpdateProfile}>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="fullName">Full Name</InputLabel>
                             <Input
-                                onChange={() => {}}
+                                onChange={handleFullNameChange}
                                 id="fullName"
                                 name="fullName"
                                 autoComplete="fullName"
-                                value = {props.userData.fullName}
+                                value = {fullNameState}
                                 autoFocus
                             />
                         </FormControl>
@@ -48,7 +69,8 @@ export const UserProfile = (props) => {
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="password">Password</InputLabel>
                             <Input
-                                onChange={() => {}}
+                                type="password"
+                                onChange={handlePasswordChange}
                                 id="password"
                                 name="password"
                                 autoComplete="password"
@@ -58,7 +80,8 @@ export const UserProfile = (props) => {
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="rePassword">Confirm Password</InputLabel>
                             <Input
-                                onChange={() => {}}
+                                onChange={handleRePasswordChange}
+                                type="password"
                                 id="rePassword"
                                 name="rePassword"
                                 autoComplete="rePassword"
