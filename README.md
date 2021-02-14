@@ -1,10 +1,8 @@
-# IETI Laboratorio 3
+# IETI Laboratorio 4
 
 Daniel Felipe Walteros Trujillo
 
-[![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://walteros-ieti-lab3.herokuapp.com/)
-
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://ieti-lab3.azurewebsites.net/)
+[![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://walteros-ieti-lab4.herokuapp.com/)
 
 # Uso
 
