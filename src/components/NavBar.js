@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Typography from '@material-ui/core/Typography';
+import {FilterModal} from './FilterModal';
 import './NavBar.css';
 
 export const NavBar = (props) => {
@@ -20,6 +21,16 @@ export const NavBar = (props) => {
         bottom: false,
         right: false,
     });
+
+    const [openModalState, setOpenModalState] = useState(false);
+
+    const handleOpenModal = () => {
+        setOpenModalState(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModalState(false);
+    };
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -65,7 +76,13 @@ export const NavBar = (props) => {
 
     return (
         <div>
-            <Button onClick={toggleDrawer("left", true)}>Menu</Button>
+            <div>
+                <Button onClick={toggleDrawer("left", true)}>Menu</Button>
+                <Button onClick={handleOpenModal}>
+                    Filter
+                </Button>
+                <FilterModal open={openModalState} closeAction={handleCloseModal} applyFilters={props.applyFilters}/>
+            </div>
             <Drawer anchor={"left"} open={state["left"]} onClose={toggleDrawer("left", false)}>
                 {list("left")}
             </Drawer>
