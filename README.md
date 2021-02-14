@@ -22,14 +22,6 @@ Daniel Felipe Walteros Trujillo
         Email = daniel@gmail.com
 
         Password = 12345
-    
-    Una vez haces esto ves lo siguiente.
-    
-    ![](img/uso2.jpeg)
-    
-    Y haciendo click en la opción de menú obtendras la vista para desconectarte:
-    
-    ![](img/uso3.jpeg)
 
 # Código de Honor
 ------
